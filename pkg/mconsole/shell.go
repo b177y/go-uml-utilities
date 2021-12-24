@@ -35,6 +35,11 @@ func RunShell(sockpath string) error {
 		switch cmd {
 		case "quit":
 			return nil
+		case "int":
+			err = InterruptUML(sockpath)
+			if err != nil {
+				return err
+			}
 		case "mconsole-version":
 			fmt.Printf("uml_mconsole client version %d\n", MCONSOLE_VERSION)
 		default:

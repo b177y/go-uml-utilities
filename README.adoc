@@ -19,7 +19,7 @@ go build -o uml_mconsole cmd/mconsole/main.go
 ** [ ] remove
 ** [ ] umlfs_cmd
 ** [ ] log_cmd
-** [ ] int_cmd
+** [ ] allow non socket commands to work from cmdline (without mconsole shell)
 * [ ] uml_moo
 * [ ] uml_switch (deprecated networking method, unnecessary to implement)
 * [ ] tunctl
