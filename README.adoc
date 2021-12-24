@@ -5,17 +5,24 @@
 This is a partial port of the uml_utilities collection of C tools for
 working with Usermode Linux.
 
-Implemented:
+== Build CLI Tool
+
+[source,sh]
+----
+go build -o uml_mconsole cmd/mconsole/main.go
+----
+
+== ToDo
 
 * [ ] uml_mconsole
 ** [*] default_cmd (e.g. cad, version, proc etc)
-*** [ ] version
+*** [*] version
 *** [*] sysrq
-*** [ ] cad
-*** [ ] stop
-*** [ ] go
-*** [ ] proc
-*** [ ] stack
+*** [*] cad
+*** [*] stop
+*** [*] go
+*** [*] proc
+*** [*] stack
 ** [ ] socket timeout
 ** [ ] umlfs_cmd
 ** [ ] log_cmd
@@ -29,9 +36,3 @@ Implemented:
 * [ ] port-helper
 * [ ] uml_mount
 
-== Build CLI Tool
-
-[source,sh]
-----
-go build -o uml_mconsole cmd/mconsole/main.go
-----

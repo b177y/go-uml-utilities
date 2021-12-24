@@ -15,12 +15,12 @@ func min(x uint32, y uint32) uint32 {
 	return y
 }
 
-func recvOutput(sock net.UnixConn) (output string, err error) {
+func recvOutput(conn net.UnixConn) (output string, err error) {
 	var reply mconsoleReply
 	reply.More = 1
 	for reply.More == 1 {
 		respBytes := make([]byte, MCONSOLE_MAX_DATA+12)
-		_, err := sock.Read(respBytes)
+		_, err := conn.Read(respBytes)
 		if err != nil {
 			return "", err
 		}
@@ -36,7 +36,9 @@ func recvOutput(sock net.UnixConn) (output string, err error) {
 	return output, err
 }
 
-func SendCommand(command string, sock net.UnixConn) (output string, err error) {
+// Sends a command to an open mconsole socket.
+// Returns the output of the command.
+func SendCommand(command string, conn net.UnixConn) (output string, err error) {
 	req := mconsoleRequest{
 		magic:   MCONSOLE_MAGIC,
 		version: MCONSOLE_VERSION,
@@ -49,14 +51,16 @@ func SendCommand(command string, sock net.UnixConn) (output string, err error) {
 	if err != nil {
 		return "", err
 	}
-	_, err = sock.Write(buf.Bytes())
+	_, err = conn.Write(buf.Bytes())
 	if err != nil {
 		return "", err
 	}
-	return recvOutput(sock)
+	return recvOutput(conn)
 }
 
-func SendCommandToSock(command string,
+// Opens an mconsole socket and sends a command.
+// Returns the output of the command.
+func CommandWithSock(command string,
 	sockpath string) (output string, err error) {
 	ra, err := net.ResolveUnixAddr("unixgram", sockpath)
 	if err != nil {

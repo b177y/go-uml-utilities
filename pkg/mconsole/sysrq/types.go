@@ -1,6 +1,4 @@
-package mconsole
-
-import "fmt"
+package sysrq
 
 type SRQCommand byte
 
@@ -110,7 +108,3 @@ const (
 	// Loglevel9 sets the console log level to 9, the most verbose level.
 	Loglevel9 SRQCommand = '9'
 )
-
-func SysRQCommand(cmd SRQCommand) string {
-	return fmt.Sprintf("sysrq %c", cmd)
-}
