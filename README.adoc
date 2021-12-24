@@ -1,0 +1,37 @@
+= UML Utilities
+
+== Overview
+
+This is a partial port of the uml_utilities collection of C tools for
+working with Usermode Linux.
+
+Implemented:
+
+* [ ] uml_mconsole
+** [*] default_cmd (e.g. cad, version, proc etc)
+*** [ ] version
+*** [*] sysrq
+*** [ ] cad
+*** [ ] stop
+*** [ ] go
+*** [ ] proc
+*** [ ] stack
+** [ ] socket timeout
+** [ ] umlfs_cmd
+** [ ] log_cmd
+** [ ] version_cmd
+** [ ] int_cmd
+** [ ] shell-like functionality (including commands switch, quit, version, help etc)
+* [ ] uml_moo
+* [ ] uml_switch (deprecated networking method, unnecessary to implement)
+* [ ] tunctl
+* [ ] jail_uml
+* [ ] port-helper
+* [ ] uml_mount
+
+== Build CLI Tool
+
+[source,sh]
+----
+go build -o uml_mconsole cmd/mconsole/main.go
+----
