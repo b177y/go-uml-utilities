@@ -14,9 +14,13 @@ var cmd = &cobra.Command{
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 1 {
-			fmt.Println("mconsole 'shell' not yet supported")
+			err := mconsole.RunShell(args[0])
+			if err != nil {
+				fmt.Printf("Error: %v\n", err)
+			}
 		} else {
-			output, err := mconsole.SendCommandToSock(strings.Join(args[1:], " "), args[0])
+			command := strings.Join(args[1:], " ")
+			output, err := mconsole.CommandWithSock(command, args[0])
 			if err != nil {
 				fmt.Printf("Error: %v\n", err)
 			} else {

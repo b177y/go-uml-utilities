@@ -5,7 +5,7 @@
 This is a partial port of the uml_utilities collection of C tools for
 working with Usermode Linux.
 
-== Build CLI Tool
+== Build uml_mconsole binary
 
 [source,sh]
 ----
@@ -26,9 +26,9 @@ go build -o uml_mconsole cmd/mconsole/main.go
 ** [ ] socket timeout
 ** [ ] umlfs_cmd
 ** [ ] log_cmd
-** [ ] version_cmd
+** [*] version_cmd
 ** [ ] int_cmd
-** [ ] shell-like functionality (including commands switch, quit, version, help etc)
+** [*] shell-like functionality (including commands switch, quit, version, help etc)
 * [ ] uml_moo
 * [ ] uml_switch (deprecated networking method, unnecessary to implement)
 * [ ] tunctl

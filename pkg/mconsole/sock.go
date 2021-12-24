@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"strings"
 )
 
 func min(x uint32, y uint32) uint32 {
@@ -33,7 +34,7 @@ func recvOutput(conn net.UnixConn) (output string, err error) {
 		}
 		output += string(reply.Data[:])
 	}
-	return output, err
+	return strings.Trim(output, "\n\r\x00"), err
 }
 
 // Sends a command to an open mconsole socket.
@@ -58,19 +59,23 @@ func SendCommand(command string, conn net.UnixConn) (output string, err error) {
 	return recvOutput(conn)
 }
 
+func openConn(sockpath string) (*net.UnixConn, error) {
+	ra, err := net.ResolveUnixAddr("unixgram", sockpath)
+	if err != nil {
+		return nil, err
+	}
+	la, err := net.ResolveUnixAddr("unixgram", "@"+fmt.Sprint(os.Getpid())+"@@@@")
+	if err != nil {
+		return nil, err
+	}
+	return net.DialUnix("unixgram", la, ra)
+}
+
 // Opens an mconsole socket and sends a command.
 // Returns the output of the command.
 func CommandWithSock(command string,
 	sockpath string) (output string, err error) {
-	ra, err := net.ResolveUnixAddr("unixgram", sockpath)
-	if err != nil {
-		return "", err
-	}
-	la, err := net.ResolveUnixAddr("unixgram", "@"+fmt.Sprint(os.Getpid())+"@@@@")
-	if err != nil {
-		return "", err
-	}
-	conn, err := net.DialUnix("unixgram", la, ra)
+	conn, err := openConn(sockpath)
 	if err != nil {
 		return "", err
 	}
