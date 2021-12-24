@@ -7,6 +7,12 @@ import (
 	"net"
 	"os"
 	"strings"
+	"time"
+)
+
+var (
+	MCONSOLE_WRITETIMEOUT time.Duration = 3
+	MCONSOLE_READTIMEOUT  time.Duration = 3
 )
 
 func min(x uint32, y uint32) uint32 {
@@ -21,8 +27,11 @@ func recvOutput(conn net.UnixConn) (output string, err error) {
 	reply.More = 1
 	for reply.More == 1 {
 		respBytes := make([]byte, MCONSOLE_MAX_DATA+12)
+		conn.SetReadDeadline(time.Now().Add(MCONSOLE_READTIMEOUT * time.Second))
 		_, err := conn.Read(respBytes)
-		if err != nil {
+		if err, ok := err.(net.Error); ok && err.Timeout() {
+			return "", fmt.Errorf("read socket timeout")
+		} else if err != nil {
 			return "", err
 		}
 		err = binary.Read(bytes.NewBuffer(respBytes), binary.LittleEndian, &reply)
@@ -52,8 +61,11 @@ func SendCommand(command string, conn net.UnixConn) (output string, err error) {
 	if err != nil {
 		return "", err
 	}
+	conn.SetWriteDeadline(time.Now().Add(MCONSOLE_WRITETIMEOUT * time.Second))
 	_, err = conn.Write(buf.Bytes())
-	if err != nil {
+	if err, ok := err.(net.Error); ok && err.Timeout() {
+		return "", fmt.Errorf("write socket timeout")
+	} else if err != nil {
 		return "", err
 	}
 	return recvOutput(conn)

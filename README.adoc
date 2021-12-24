@@ -15,20 +15,11 @@ go build -o uml_mconsole cmd/mconsole/main.go
 == ToDo
 
 * [ ] uml_mconsole
-** [*] default_cmd (e.g. cad, version, proc etc)
-*** [*] version
-*** [*] sysrq
-*** [*] cad
-*** [*] stop
-*** [*] go
-*** [*] proc
-*** [*] stack
-** [ ] socket timeout
+** [ ] config
+** [ ] remove
 ** [ ] umlfs_cmd
 ** [ ] log_cmd
-** [*] version_cmd
 ** [ ] int_cmd
-** [*] shell-like functionality (including commands switch, quit, version, help etc)
 * [ ] uml_moo
 * [ ] uml_switch (deprecated networking method, unnecessary to implement)
 * [ ] tunctl

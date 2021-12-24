@@ -60,3 +60,8 @@ func Proc(procfile string) (command string) {
 func Stack(pid int) (command string) {
 	return fmt.Sprintf("stack %d", pid)
 }
+
+// Logs message to UML kernel log
+func Log(message string) (command string) {
+	return fmt.Sprintf("log %s", message)
+}

@@ -19,12 +19,13 @@ func RunShell(sockpath string) error {
 	}
 	_, err = SendCommand(Proc("sys/kernel/hostname"), *conn)
 	if err != nil {
-		fmt.Println("damn cant do multiple commands")
 		return err
 	}
-	prompt := fmt.Sprintf("\n[%s]# ", hostname)
+	prompt := fmt.Sprintf("\n[mconsole@%s]# ", hostname)
 	reader := bufio.NewReader(os.Stdin)
 	for {
+		// possibly add readline for history
+		// https://pkg.go.dev/github.com/chzyer/readline#AddHistory
 		fmt.Print(prompt)
 		cmd, err := reader.ReadString('\n')
 		if err != nil {
