@@ -1,4 +1,4 @@
-module github.com/b177y/uml-utilities
+module github.com/b177y/go-uml-utilities
 
 go 1.17
 
