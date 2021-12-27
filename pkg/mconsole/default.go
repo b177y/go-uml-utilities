@@ -3,7 +3,7 @@ package mconsole
 import (
 	"fmt"
 
-	"github.com/b177y/uml-utilities/pkg/mconsole/sysrq"
+	"github.com/b177y/go-uml-utilities/pkg/mconsole/sysrq"
 )
 
 // Gets the UML version.

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/b177y/uml-utilities/pkg/mconsole"
+	"github.com/b177y/go-uml-utilities/pkg/mconsole"
 	"github.com/spf13/cobra"
 )
 

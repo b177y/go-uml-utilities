@@ -1,4 +1,4 @@
-= UML Utilities
+= Go UML Utilities
 
 == Overview
 
