@@ -76,7 +76,7 @@ func openConn(sockpath string) (*net.UnixConn, error) {
 	if err != nil {
 		return nil, err
 	}
-	la, err := net.ResolveUnixAddr("unixgram", "@"+fmt.Sprint(os.Getpid())+"@@@@")
+	la, err := net.ResolveUnixAddr("unixgram", "@"+fmt.Sprint(os.Getpid())+randString(8)+"@@@@")
 	if err != nil {
 		return nil, err
 	}
